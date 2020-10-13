@@ -81,7 +81,7 @@ namespace EstiwTest.ViewModel
         {
             if (Products != null)
                 Products.OnCollectionChangeStateEvent -= Customers_PropertyChanged;
-            Products = EstivProvider.GetCustomers(SearchText, CurrentSearch);
+            Products = EstivProvider.GetProducts(SearchText, CurrentSearch);
             if (Products != null)
                 Products.OnCollectionChangeStateEvent += Customers_PropertyChanged;
             Products.ForEach(x => x.AcceptChanges());
