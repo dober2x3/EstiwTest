@@ -136,17 +136,6 @@
     <Compile Include="DB\Product.cs">
       <DependentUpon>EstiwDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityTracking\ChangeTrackerAttribute.cs" />
-    <Compile Include="EntityTracking\EntityBase.cs" />
-    <Compile Include="EntityTracking\EntityRepositoryBase.cs" />
-    <Compile Include="EntityTracking\EntityStateManager.cs" />
-    <Compile Include="EntityTracking\IChangeTracker.cs" />
-    <Compile Include="EntityTracking\IEntity.cs" />
-    <Compile Include="EntityTracking\IRepository.cs" />
-    <Compile Include="EntityTracking\IUnitOfWork.cs" />
-    <Compile Include="EntityTracking\IUnitOfWorkRepository.cs" />
-    <Compile Include="EntityTracking\RepositoryBase.cs" />
-    <Compile Include="EntityTracking\RepositoryStateManager.cs" />
     <Compile Include="Extentions.cs" />
     <Compile Include="DB\Model\ItemBase.cs" />
     <Compile Include="DB\Model\Customer.cs" />

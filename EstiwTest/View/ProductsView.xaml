@@ -37,6 +37,17 @@
             <Button Margin="2" Command="{Binding RefreshCommand}">Обновить</Button>
             <Button Margin="2" Command="{Binding SaveCommand}">Сохранить</Button>
             <Button Margin="2" Command="{Binding DelCommand}">Удалить</Button>
+            <TextBlock Margin="2" Width="50">Поиск:</TextBlock>
+            <TextBox  Margin="2"  Width="200" Text="{Binding SearchText}"></TextBox>
+            <!--<ComboBox Margin="2"  Width="100" SelectedValuePath="Content" 
+              SelectedValue="{Binding Path=CurrentSearch, Mode=TwoWay }"
+              >
+                <ComboBoxItem >Имя</ComboBoxItem>
+                <ComboBoxItem >Фамилия</ComboBoxItem>
+                <ComboBoxItem>Телефон</ComboBoxItem>
+                <ComboBoxItem>Адрес</ComboBoxItem>
+            </ComboBox>-->
+            <Button Margin="2" Width="100" Command="{Binding SearchCommand}">Найти</Button>
         </StackPanel>
         <DataGrid Margin="2" Grid.Row="2" ItemsSource="{Binding ProductsView}" AutoGenerateColumns="False" CanUserSortColumns="True" SelectedItem="{Binding CurrentProduct}" Unloaded="DataGrid_Unloaded">
             <DataGrid.Columns>

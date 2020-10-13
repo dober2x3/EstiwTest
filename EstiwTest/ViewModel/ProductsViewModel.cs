@@ -30,7 +30,7 @@ namespace EstiwTest.ViewModel
         private ItemCollection<Product> products;
         private Product currentProduct;
         private Customer customer;
-
+        public RelayCommand SearchCommand { get; set; }
         public Product CurrentProduct
         {
             get => currentProduct;
@@ -50,6 +50,8 @@ namespace EstiwTest.ViewModel
                 Set(ref products, value);
             }
         }
+        public string CurrentSearch { get; set; }
+        public string SearchText { get; set; }
         public CollectionView ProductsView { get; set; }
         public RelayCommand SaveCommand { get; set; }
         public RelayCommand DelCommand { get; set; }
@@ -63,6 +65,7 @@ namespace EstiwTest.ViewModel
             BackCommand = new RelayCommand(Back);
             SaveCommand = new RelayCommand(Save, () => { return Products == null ? false : (Products.Count(x => x.IsChanged) > 0 && Products.CollectionIsValid); });
             DelCommand = new RelayCommand(Del, () => { return CurrentProduct != null; });
+            SearchCommand = new RelayCommand(Search);
             Refresh();
 
             ////if (IsInDesignMode)
@@ -74,7 +77,16 @@ namespace EstiwTest.ViewModel
             ////    // Code runs "for real"
             ////}
         }
-
+        private void Search()
+        {
+            if (Products != null)
+                Products.OnCollectionChangeStateEvent -= Customers_PropertyChanged;
+            Products = EstivProvider.GetCustomers(SearchText, CurrentSearch);
+            if (Products != null)
+                Products.OnCollectionChangeStateEvent += Customers_PropertyChanged;
+            Products.ForEach(x => x.AcceptChanges());
+            ProductsView = (CollectionView)CollectionViewSource.GetDefaultView(Products);
+        }
         private void Back()
         {
             MessengerInstance.Send(new BackMessage());

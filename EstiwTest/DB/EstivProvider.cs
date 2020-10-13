@@ -1,6 +1,6 @@
 ﻿using EstiwTest.DB.Model;
 
-using Lx.Data.Repository;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -88,6 +88,18 @@ namespace EstiwTest.DB
             {
 
                 db.Products.Where(x => x.CustomerId == id).Load();
+                result = new ItemCollection<Product>(db.Products.Local);
+
+            }
+            return result;
+        }
+        public static ItemCollection<Product> GetProducts(string search, string type)
+        {
+            ItemCollection<Product> result;
+            using (var db = new EstiwDBContainer())
+            {
+
+                db.Products.Where(x => (type == "Товар" && x.Name.Contains(search))).Load();
                 result = new ItemCollection<Product>(db.Products.Local);
 
             }
