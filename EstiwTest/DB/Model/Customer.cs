@@ -1,6 +1,5 @@
 ﻿using EstiwTest.DB;
 using GalaSoft.MvvmLight;
-using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

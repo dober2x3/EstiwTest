@@ -108,15 +108,15 @@ namespace EstiwTest.ViewModel
 
         public void Del()
         {
-            //if (MessageBox.Show("Удилить " + CurrentCustomer.FirstName,"",MessageBoxButton.OKCancel) == MessageBoxResult.OK)
-            //{
-            //    if (EstivProvider.Save(null, CurrentCustomer))
-            //    {
-            //        Customers.Remove(CurrentCustomer);
-            //        CurrentCustomer = null;
-            //    }
-            //}
-            //Customers.ForEach(x => x.AcceptChanges());
+            if (MessageBox.Show("Удилить " + CurrentProduct.Name, "", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            {
+                if (EstivProvider.SaveProducts(null, CurrentProduct))
+                {
+                    Products.Remove(CurrentProduct);
+                    CurrentProduct = null;
+                }
+            }
+            Products.ForEach(x => x.AcceptChanges());
 
         }
 
