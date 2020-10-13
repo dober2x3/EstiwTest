@@ -28,18 +28,6 @@ namespace EstiwTest.ViewModel
     /// See http://www.galasoft.ch/mvvm
     /// </para>
     /// </summary>        
-    public enum CustomersSearchType
-    {
-
-        [Description("Имя")]
-        FirstName,
-        [Description("Фамилия")]
-        LastName,
-        [Description("Адрес")]
-        Address,
-        [Description("Телефон")]
-        Phone
-    }
 
     public class CustomersViewModel : ViewModelBase
     {
@@ -84,23 +72,18 @@ namespace EstiwTest.ViewModel
             SearchCommand = new RelayCommand(Search);
             OpenProductsCommand = new RelayCommand(OpenProducts);
             Refresh();
-            //CustomersView.SortDescriptions.Add(new System.ComponentModel.SortDescription("LastName", System.ComponentModel.ListSortDirection.Ascending));
-            //CustomersView.SortDescriptions.Add(new System.ComponentModel.SortDescription("FirstName", System.ComponentModel.ListSortDirection.Ascending));
-            //CustomersView.SortDescriptions.Add(new System.ComponentModel.SortDescription("Phone", System.ComponentModel.ListSortDirection.Ascending));
-            //CustomersView.SortDescriptions.Add(new System.ComponentModel.SortDescription("Address", System.ComponentModel.ListSortDirection.Ascending));
-            ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
+
         }
 
         private void Search()
         {
-           
+            if (Customers != null)
+                Customers.OnCollectionChangeStateEvent -= Customers_PropertyChanged;
+            Customers = EstivProvider.GetCustomers(SearchText,CurrentSearch);
+            if (Customers != null)
+                Customers.OnCollectionChangeStateEvent += Customers_PropertyChanged;
+            Customers.ForEach(x => x.AcceptChanges());
+            CustomersView = (CollectionView)CollectionViewSource.GetDefaultView(Customers);
         }
 
         private void Customers_PropertyChanged(object sender, bool IsValid, bool IsChanged)
@@ -155,20 +138,4 @@ namespace EstiwTest.ViewModel
         }
     }
 
-    public class EnumToItemsSource : MarkupExtension
-    {
-        private readonly Type _type;
-
-        public EnumToItemsSource(Type type)
-        {
-            _type = type;
-        }
-
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return Enum.GetValues(_type)
-                .Cast<object>()
-                .Select(e => new { Value = (int)e, DisplayName = e.ToString() });
-        }
-    }
 }

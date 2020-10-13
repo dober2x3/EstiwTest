@@ -62,7 +62,7 @@ namespace EstiwTest.DB
 
                 result = new ItemCollection<Customer>(from t in db.Customers.Local
                                                       join p in db.Products on t.Id equals p.CustomerId into tp
-                                                      //where (type=="Имя"&& t.FirstName.Contains(search))|| (type == "Имя" && t.FirstName.Contains(search)) || (type == "Имя" && t.FirstName.Contains(search)) || (type == "Имя" && t.FirstName.Contains(search)) ||
+                                                      where (type=="Имя"&& t.FirstName.Contains(search))|| (type == "Фамилия" && t.LastName.Contains(search)) || (type == "Адрес" && t.Address.Contains(search)) || (type == "Телефон" && t.Phone.Contains(search)) 
                                                       from subt in tp.DefaultIfEmpty()
                                                       select new Customer()
                                                       {

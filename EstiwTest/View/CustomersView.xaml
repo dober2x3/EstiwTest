@@ -39,9 +39,9 @@
             <Button Margin="2"  Width="100" Command="{Binding DelCommand}">Удалить</Button>
             <TextBlock Margin="2" Width="50">Поиск:</TextBlock>
             <TextBox  Margin="2"  Width="200" Text="{Binding SearchText}"></TextBox>
-            <ComboBox Margin="2"  Width="100" 
-              SelectedValue="{Binding Path=CurrentSearch}"
-              SelectedValuePath="Value">
+            <ComboBox Margin="2"  Width="100" SelectedValuePath="Content" 
+              SelectedValue="{Binding Path=CurrentSearch, Mode=TwoWay }"
+              >
                 <ComboBoxItem >Имя</ComboBoxItem>
                 <ComboBoxItem >Фамилия</ComboBoxItem>
                 <ComboBoxItem>Телефон</ComboBoxItem>
