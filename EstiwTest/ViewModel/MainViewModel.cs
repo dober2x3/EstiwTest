@@ -46,11 +46,13 @@ namespace EstiwTest.ViewModel
         {
             CurrentViewModel = CustomersViewModel;
             CustomersViewModel.RefreshProducts();
+            RaisePropertyChanged(() => CurrentViewModel);
         }
 
         private void HandleOpenProductsMessage(OpenProductsMessage obj)
         {
             CurrentViewModel = new ProductsViewModel(obj.CurrentCustomer);
+            RaisePropertyChanged(() => CurrentViewModel);
         }
     }
 }
