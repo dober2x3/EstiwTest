@@ -1,0 +1,27 @@
+﻿<Window x:Class="EstiwTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EstiwTest" xmlns:view="clr-namespace:EstiwTest.View"
+        xmlns:vm="clr-namespace:EstiwTest.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        DataContext="{Binding Main, Source={StaticResource Locator}}">
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:CustomersViewModel}" >
+            
+                <view:CustomersView DataContext="{Binding }"/>
+            
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ProductsViewModel}" >
+            
+                <view:ProductsView DataContext="{Binding }"/>
+            
+        </DataTemplate>
+    </Window.Resources>
+    <ContentControl Content="{Binding CurrentViewModel}" VerticalContentAlignment="Stretch"/>
+        <!---->
+   
+</Window>
