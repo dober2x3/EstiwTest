@@ -33,10 +33,10 @@ namespace EstiwTest.ViewModel
     {
        
 
-        private ItemCollection<Customer> customers = new ItemCollection<Customer>();
-        private Customer currentCustomer;
+        private ItemCollection<Customers> customers = new ItemCollection<Customers>();
+        private Customers currentCustomer;
 
-        public Customer CurrentCustomer
+        public Customers CurrentCustomer
         {
             get => currentCustomer;
             set
@@ -46,7 +46,7 @@ namespace EstiwTest.ViewModel
                 DelCommand.RaiseCanExecuteChanged();
             }
         }
-        public ItemCollection<Customer> Customers
+        public ItemCollection<Customers> Customers
         {
             get => customers;
             set
@@ -73,13 +73,19 @@ namespace EstiwTest.ViewModel
             OpenProductsCommand = new RelayCommand(OpenProducts);
             Refresh();
 
+            //using (var db = new TradeContext())
+            //{
+            //    db.Customers.Add(new Customers { FirstName = "111" });
+            //    db.SaveChanges();
+            //}
+
         }
 
         private void Search()
         {
             if (Customers != null)
                 Customers.OnCollectionChangeStateEvent -= Customers_PropertyChanged;
-            Customers = EstivProvider.GetCustomers(SearchText,CurrentSearch);
+            Customers = TradeContext.GetCustomers(SearchText, CurrentSearch);
             if (Customers != null)
                 Customers.OnCollectionChangeStateEvent += Customers_PropertyChanged;
             Customers.ForEach(x => x.AcceptChanges());
@@ -101,7 +107,7 @@ namespace EstiwTest.ViewModel
         public void Save()
         {
 
-            EstivProvider.SaveCustomers(Customers.Where(x => x.IsChanged), null);
+            TradeContext.SaveCustomers(Customers.Where(x => x.IsChanged), null);
             Customers.ForEach(x => x.AcceptChanges());
             SaveCommand.RaiseCanExecuteChanged();
 
@@ -111,7 +117,7 @@ namespace EstiwTest.ViewModel
         {
             if (MessageBox.Show("Удилить " + CurrentCustomer.FirstName, "", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
             {
-                if (EstivProvider.SaveCustomers(null, CurrentCustomer))
+                if (TradeContext.SaveCustomers(null, CurrentCustomer))
                 {
                     Customers.Remove(CurrentCustomer);
                     CurrentCustomer = null;
@@ -125,7 +131,7 @@ namespace EstiwTest.ViewModel
         {
             if (Customers != null)
                 Customers.OnCollectionChangeStateEvent -= Customers_PropertyChanged;
-            Customers = EstivProvider.GetCustomers();
+            Customers = TradeContext.GetCustomers();
             if (Customers != null)
                 Customers.OnCollectionChangeStateEvent += Customers_PropertyChanged;
             Customers.ForEach(x => x.AcceptChanges());
@@ -134,7 +140,7 @@ namespace EstiwTest.ViewModel
 
         public void RefreshProducts()
         {
-            CurrentCustomer.ProductCount = EstivProvider.GetProductCount(CurrentCustomer);
+            CurrentCustomer.ProductCount = TradeContext.GetProductCount(CurrentCustomer);
         }
     }
 

@@ -27,11 +27,11 @@ namespace EstiwTest.ViewModel
     /// </summary>
     public class ProductsViewModel : ViewModelBase
     {
-        private ItemCollection<Product> products;
-        private Product currentProduct;
-        private Customer customer;
+        private ItemCollection<Products> products;
+        private Products currentProduct;
+        private Customers customer;
         public RelayCommand SearchCommand { get; set; }
-        public Product CurrentProduct
+        public Products CurrentProduct
         {
             get => currentProduct;
             set
@@ -41,8 +41,8 @@ namespace EstiwTest.ViewModel
                 DelCommand.RaiseCanExecuteChanged();
             }
         }
-        public Customer Customer { get => customer; set => Set(ref customer, value); }
-        public ItemCollection<Product> Products
+        public Customers Customer { get => customer; set => Set(ref customer, value); }
+        public ItemCollection<Products> Products
         {
             get => products;
             set
@@ -57,7 +57,7 @@ namespace EstiwTest.ViewModel
         public RelayCommand DelCommand { get; set; }
         public RelayCommand RefreshCommand { get; set; }
         public RelayCommand BackCommand { get; set; }
-        public ProductsViewModel(Customer customer)
+        public ProductsViewModel(Customers customer)
         {
             Customer = customer;
             
@@ -68,20 +68,13 @@ namespace EstiwTest.ViewModel
             SearchCommand = new RelayCommand(Search);
             Refresh();
 
-            ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
+
         }
         private void Search()
         {
             if (Products != null)
                 Products.OnCollectionChangeStateEvent -= Customers_PropertyChanged;
-            Products = EstivProvider.GetProducts(SearchText, CurrentSearch);
+            Products = TradeContext.GetProducts(SearchText, CurrentSearch);
             if (Products != null)
                 Products.OnCollectionChangeStateEvent += Customers_PropertyChanged;
             Products.ForEach(x => x.AcceptChanges());
@@ -99,8 +92,8 @@ namespace EstiwTest.ViewModel
         }
         public void Save()
         {
-            Products.Where(x => x.IsChanged).ForEach(z => z.CustomerId = Customer.Id);
-            EstivProvider.SaveProducts(Products.Where(x => x.IsChanged),null);
+            Products.Where(x => x.IsChanged).ForEach(z => z.CustomersId = Customer.Id);
+            TradeContext.SaveProducts(Products.Where(x => x.IsChanged), null);
             Products.ForEach(x => x.AcceptChanges());
             SaveCommand.RaiseCanExecuteChanged();
 
@@ -110,7 +103,7 @@ namespace EstiwTest.ViewModel
         {
             if (MessageBox.Show("Удилить " + CurrentProduct.Name, "", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
             {
-                if (EstivProvider.SaveProducts(null, CurrentProduct))
+                if (TradeContext.SaveProducts(null, CurrentProduct))
                 {
                     Products.Remove(CurrentProduct);
                     CurrentProduct = null;
@@ -124,10 +117,10 @@ namespace EstiwTest.ViewModel
         {
             if (Products != null)
                 Products.OnCollectionChangeStateEvent -= Customers_PropertyChanged;
-            Products = EstivProvider.GetProducts(Customer.Id);
+            Products = TradeContext.GetProducts(Customer.Id);
             if (Products != null)
                 Products.OnCollectionChangeStateEvent += Customers_PropertyChanged;
-            
+
             Products.ForEach(x => x.AcceptChanges());
             ProductsView = (CollectionView)CollectionViewSource.GetDefaultView(Products);
         }

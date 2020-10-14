@@ -13,7 +13,7 @@ namespace EstiwTest
             foreach (var cur in enumerable)
             {
                 action(cur);
-            }
+            }//AddForeignKey("Products", "CustomerId", "Customers", "Id");
         }
     }
 }

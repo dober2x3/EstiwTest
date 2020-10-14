@@ -4,6 +4,6 @@ namespace EstiwTest.ViewModel
 {
     internal class OpenProductsMessage
     {
-        public Customer CurrentCustomer { get; set; }
+        public Customers CurrentCustomer { get; set; }
     }
 }

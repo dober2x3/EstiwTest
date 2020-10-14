@@ -108,36 +108,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DB\Customer.cs">
-      <DependentUpon>EstiwDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\EstivProvider.cs" />
-    <Compile Include="DB\EstiwDB.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EstiwDB.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\EstiwDB.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EstiwDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\EstiwDB.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EstiwDB.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="DB\Model\CustomerEntity.cs" />
+    <Compile Include="DB\DbProvider.cs" />
     <Compile Include="DB\Model\ITrackItem.cs" />
     <Compile Include="DB\Model\ItemCollection.cs" />
-    <Compile Include="DB\Product.cs">
-      <DependentUpon>EstiwDB.tt</DependentUpon>
-    </Compile>
+    <Compile Include="DB\Model\ProductEntity.cs" />
     <Compile Include="Extentions.cs" />
     <Compile Include="DB\Model\ItemBase.cs" />
-    <Compile Include="DB\Model\Customer.cs" />
-    <Compile Include="DB\Model\Product.cs" />
     <Compile Include="Messages\OpenProductsMessage.cs" />
     <Compile Include="Messages\BackMessage.cs" />
+    <Compile Include="Migrations\202010130646404_InitialCreate.cs" />
+    <Compile Include="Migrations\202010130646404_InitialCreate.designer.cs">
+      <DependentUpon>202010130646404_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010130649305_1.cs" />
+    <Compile Include="Migrations\202010130649305_1.designer.cs">
+      <DependentUpon>202010130649305_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010140117126_2.cs" />
+    <Compile Include="Migrations\202010140117126_2.designer.cs">
+      <DependentUpon>202010140117126_2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ViewModel\ProductsViewModel.cs" />
     <Compile Include="ViewModel\CustomersViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -183,17 +175,19 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\202010130646404_InitialCreate.resx">
+      <DependentUpon>202010130646404_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010130649305_1.resx">
+      <DependentUpon>202010130649305_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010140117126_2.resx">
+      <DependentUpon>202010140117126_2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="DB\EstiwDB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EstiwDB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="DB\EstiwDB.edmx.diagram">
-      <DependentUpon>EstiwDB.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -207,17 +201,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DB\EstiwDB.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EstiwDB.Context.cs</LastGenOutput>
-      <DependentUpon>EstiwDB.edmx</DependentUpon>
-    </Content>
-    <Content Include="DB\EstiwDB.edmx.sql" />
-    <Content Include="DB\EstiwDB.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EstiwDB.cs</LastGenOutput>
-      <DependentUpon>EstiwDB.edmx</DependentUpon>
-    </Content>
     <Resource Include="Default.tt.txt" />
     <Resource Include="Inotify.tt.txt" />
   </ItemGroup>
